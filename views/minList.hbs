@@ -1,0 +1,25 @@
+<div id="users">
+list
+</div>
+<script>
+    let usersBlock = document.getElementById('users');
+    let list='';
+    $.ajax({
+        url: '/api/users',
+        type: 'GET',
+        contentType: "application/json",
+        success: function (users) {
+            var rows = "";
+            $.each(users, function (index, user) {
+                
+               list += addlist(user);
+            })
+            usersBlock.innerHTML=list;
+        }
+    })
+    function addlist(user){
+        if(!user)return;
+        let buffer=`<a href="/user/${user._id}"><div class="user" data-user-id="${user._id}"><div class="img"></div><div class="userName">${user.name}</div></div></a>`;
+        return buffer;
+    }
+</script>
